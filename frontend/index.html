@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Microservices Demo</title>
+</head>
+<body>
+
+<h1>Kubernetes Microservices Project</h1>
+
+<button onclick="getUsers()">Get Users</button>
+
+<p id="result"></p>
+
+<script>
+async function getUsers() {
+    let response = await fetch('/api/users');
+    let data = await response.json();
+
+    document.getElementById("result").innerHTML =
+        JSON.stringify(data);
+}
+</script>
+
+</body>
+</html>
