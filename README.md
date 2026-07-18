@@ -121,8 +121,4 @@ Expected output:
 
 ## Deployments
 
-![Deployments](screenshots/deployments.png)
-
-## Architecture
-
-![Architecture](screenshots/architecture.png)
+![Deployment](screenshots/deployment.png)
