@@ -18,7 +18,7 @@ pipeline {
 
         stage('Docker Check'){
             steps {
-                sh 'docker --vesion'
+                sh 'docker --version'
                 sh 'docker images'
             }
         }
