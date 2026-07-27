@@ -15,13 +15,13 @@ pipeline {
 
         stage('Build frontend image') {
             steps {
-                sh 'docker build -t appi47/frontend:v1 ./frontend'
+                sh 'docker build -t appi47/frontend:${BUILD_NUMBER} ./frontend'
             }
         }
 
         stage('Build backend image') {
             steps {
-                sh 'docker build -t appi47/backend:v1 ./backend'
+                sh 'docker build -t appi47/backend:${BUILD_NUMBER} ./backend'
             }
         }
 
@@ -41,13 +41,13 @@ pipeline {
 
         stage('Push frontend image') {
             steps {
-                sh 'docker push appi47/frontend:v1'
+                sh 'docker push appi47/frontend:${BUILD_NUMBER}'
             }
         }
 
         stage('Push backend image') {
             steps {
-                sh 'docker push appi47/backend:v1'
+                sh 'docker push appi47/backend:${BUILD_NUMBER}'
             }
         }
     }
