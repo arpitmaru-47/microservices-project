@@ -2,24 +2,33 @@ pipeline {
     agent any
 
     stages {
-
-        stage('Clone Verification') {
+        stage('Checkout') {
             steps {
-                sh 'pwd'
-                sh 'ls -ls'
+                checkout scm
             }
         }
 
-        stage('Git Check') {
-            steps {
-                sh 'git --version'
-            }
-        }
-
-        stage('Docker Check'){
+        stage('Docker version') {
             steps {
                 sh 'docker --version'
-                sh 'docker images'
+            }
+        }
+
+        stage('Build frontend image') {
+            steps {
+                sh 'docker build -t frontend:v1 ./frontend'
+            }
+        }
+
+        stage('Build backend image') {
+            steps {
+                sh 'docker build -t backend:v1 ./backend'
+            }
+        }
+
+        stage('List iamges') {
+            steps {
+                sh 'docker iamges'
             }
         }
     }
