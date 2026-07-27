@@ -28,7 +28,7 @@ pipeline {
 
         stage('List iamges') {
             steps {
-                sh 'docker iamges'
+                sh 'docker images'
             }
         }
     }
