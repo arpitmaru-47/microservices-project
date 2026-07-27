@@ -20,12 +20,6 @@ pipeline {
             }
         }
 
-        stage('Build backend image') {
-            steps {
-                sh 'docker build -t backend:v1 ./backend'
-            }
-        }
-
         stage('List iamges') {
             steps {
                 sh 'docker images'
