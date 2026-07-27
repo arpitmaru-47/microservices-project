@@ -1,28 +1,53 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKER_USERNAME = "appi47"
+    }
+
     stages {
+
         stage('Checkout') {
             steps {
                 checkout scm
             }
         }
 
-        stage('Docker version') {
-            steps {
-                sh 'docker --version'
-            }
-        }
-
         stage('Build frontend image') {
             steps {
-                sh 'docker build -t frontend:v1 ./frontend'
+                sh 'docker build -t appi47/frontend:v1 ./frontend'
             }
         }
 
-        stage('List iamges') {
+        stage('Build backend image') {
             steps {
-                sh 'docker images'
+                sh 'docker build -t appi47/backend:v1 ./backend'
+            }
+        }
+
+        stage('Docker login') {
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub',
+                    usernameVariable: 'DOCKER_USER',
+                    passwordVariable: 'DOCKER_PASS'
+                )]) {
+                    sh '''
+                    echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                    '''
+                }
+            }
+        }
+
+        stage('Push frontend image') {
+            steps {
+                sh 'docker push appi47/frontend:v1'
+            }
+        }
+
+        stage('Push backend image') {
+            steps {
+                sh 'docker push appi47/backend:v1'
             }
         }
     }
